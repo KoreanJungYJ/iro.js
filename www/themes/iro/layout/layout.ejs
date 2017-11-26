@@ -28,6 +28,15 @@
       });
     </script>
     <% } %>
+    <% if (theme.google_analytics) { %>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= theme.google_analytics %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "<%= theme.google_analytics %>");
+    </script>
+    <% } %>
   </head>
   <body>
     <%- body %>
@@ -65,6 +74,17 @@
       // Fix codeblocks so they work with prism
       $$("pre code").forEach(function(block) {
         block.className = "language-" + block.className;
+      });
+      // For some utterly bizarre reason, Hexo's markup renderer messed up title links 
+      // So, yeah, the only way that can be easily fixed is via JS
+      // This is why I hate static site generators tbqh
+      $$("h1, h2, h3, h4, h5, h6").forEach(function(heading) {
+        var anchor = document.createElement("a");
+        anchor.href = "#" + heading.id;
+        anchor.title = heading.innerText;
+        anchor.innerText = heading.innerText;
+        heading.innerHTML = "";
+        heading.appendChild(anchor);
       });
     </script>
     <!-- Looking for this site's source code? No problem! https://github.com/jaames/iro.js/tree/master/www -->

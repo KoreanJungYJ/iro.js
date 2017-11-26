@@ -39,6 +39,17 @@
     color: darken($accent-color, 8);
   }
 
+  h1, h2, h3, h4, h5, h6 {
+    a {
+      color: inherit;
+      text-decoration: none;
+      border: none;
+    }
+    a:hover {
+      color: inherit;
+    }
+  }
+
   code {
     background-color: darken($light-gray, 4);
   }
